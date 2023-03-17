@@ -1,0 +1,74 @@
+CREATE DATABASE studentSystem;
+
+CREATE TABLE course (
+  courseCode varchar(15) ,
+  courseTitle varchar(30),
+  progId varchar(15),
+  bookId varchar(5),
+  lecId varchar(5) 
+  );
+  
+  CREATE TABLE financials (
+  regNo varchar(30) ,
+  amountPaid float ,
+  balance float  ,
+  refNumber INT  PRIMARY KEY
+);
+
+CREATE TABLE lecturer (
+  lecName varchar(50),
+  courseCode varchar(30),
+  lecId varchar(5) PRIMARY KEY
+  );
+  
+  CREATE TABLE library (
+  bookId varchar(5) PRIMARY KEY,
+  bookName varchar(30),
+  authors varchar(30),
+  copies tinyint(3) ,
+  booksBorrowed tinyint(3) ,
+  booksAvailable tinyint(3) 
+  );
+  
+  CREATE TABLE program (
+  progId varchar(15) PRIMARY KEY,
+  progTitle varchar(30) ,
+  courseCode varchar(15) ,
+  timeline tinyint(2) 
+  );
+  
+  CREATE TABLE report (
+  lecId char(15) ,
+  courseCode varchar(30) ,
+  number int(11)  PRIMARY KEY
+  );
+  
+  CREATE TABLE score (
+  catScore tinyint(2) ,
+  examScore tinyint(2) ,
+  avgScore tinyint(3) ,
+  courseCode varchar(15) ,
+  regNo varchar(30) ,
+  num tinyint(5)  PRIMARY KEY
+  );
+  
+  CREATE TABLE student (
+  name varchar(50) ,
+  regNo varchar(30) PRIMARY KEY,
+  idNo int(8) ,
+  phoneNo int(11) ,
+  progId varchar(15) ,
+  timeline int(1) 
+  );
+  
+  CREATE TABLE student_result_slip (
+  courseCode varchar(15) ,
+  courseTitle varchar(30),
+  courseAvgScore tinyint(3),
+  coursegrade char(1),
+  courseAvgGrade tinyint(3),
+  regNo varchar(30),
+  name varchar(50) PRIMARY KEY
+  );
+  
+  
