@@ -4,25 +4,87 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
+import java.sql.*;
 
-public class GUI {
+public class GUI implements ActionListener {
+    
+    
+    JLabel label;
+    JPanel panel;
+    JFrame frame;
+    
     public GUI(){
         
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         
-        JButton button = new JButton("Click me");
         
-        JPanel panel = new JPanel();
+        
+        JButton studentReg = new JButton("Student Registration");
+        JButton studentLogin = new JButton("Student Login");
+        JButton lecLogin = new JButton("Lecturer Login");
+        JButton studentFinancials = new JButton("Student Financials");
+        
+        
+        panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout(0,1));
-        panel.add(button);
+        panel.setLayout(new GridLayout(2,2));
+        panel.add(studentReg);
+        panel.add(studentLogin);
+        panel.add(lecLogin);
+        panel.add(studentFinancials);
         
+        studentReg.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                String name = JOptionPane.showInputDialog("Enter your name:");
+                String regNo = JOptionPane.showInputDialog("Enter your Registration Number:");
+                int idNo = Integer.parseInt(JOptionPane.showInputDialog("Enter your Id Number:"));
+                int phoneNo = Integer.parseInt(JOptionPane.showInputDialog("Enter your phone Number:"));
+                String progId = JOptionPane.showInputDialog("Enter the program Id:");
+                
+                try{
+                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                    PreparedStatement statemt = conObj.prepareStatement("INSERT INTO student(name, regNo , idNo, phoneNo,progId) VALUES (?, ?, ?, ?, ?, ?)");
+                    
+                    statemt.setString(1, name);
+                    statemt.setString(2, regNo);
+                    statemt.setInt(3, idNo);
+                    statemt.setInt(4, phoneNo);
+                    statemt.setString(5, progId);
+                    statemt.executeUpdate();
+                    conObj.close();
+                    
+                    JOptionPane.showMessageDialog(null, "Successfully registered!");
+                }
+                
+                catch(SQLException ex){
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error!");
+                }
+          }
+        }
+      );
+        
+        
+        
+  
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Our GUI");
+        frame.setTitle("Student System");
         frame.pack();
         frame.setVisible(true);
                 
         
     }
-
+    
+    public void actionPerformed(ActionEvent e){
+        Syatem.out.println("Action");
+    }
+    
+    public static void main(String [] args){
+        new GUI();
+    } 
+}
