@@ -1,7 +1,7 @@
 CREATE DATABASE studentSystem;
 
 CREATE TABLE course (
-  courseCode varchar(15) ,
+  courseCode varchar(15) PRIMARY KEY ,
   courseTitle varchar(30),
   progId varchar(15),
   bookId varchar(5),
