@@ -71,4 +71,11 @@ CREATE TABLE lecturer (
   name varchar(50) PRIMARY KEY
   );
   
-  
+  CREATE TABLE book(
+  ISNN VARCHAR(5),
+  title VARCHAR(30),
+  edition CHAR(4),
+  version INT,
+  yrPublished TINYINT(4),
+  bookId VARCHAR(5)
+  );
