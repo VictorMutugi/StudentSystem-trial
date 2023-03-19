@@ -111,9 +111,22 @@ public class GUI implements ActionListener {
                String lecName = JOptionPane.showInputDialog("Enter your name:");
                String lecId = JOptionPane.showInputDialog("Enter your lecturer Id Number:");
                
-               try{
+               frame= new Jframe();
+               
+               JButton report = new JButton("report");
+               JButton courses = new JButton("courses");
+               
+               panel = new JPanel();
+               panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
+               panel.setLayout(new GridLayout(1,2));
+               panel.add(report);
+               panel.add(courses);
+               
+               courses.addActionListener(new ActionListener(){
+                   public void actionPerformed(ActionEvent e){
+                    try{
                    
-                   frame 
+                   
                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
                    PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM courses WHERE lecId = ?");
                    statemt.setString(1,lecName);
@@ -121,19 +134,125 @@ public class GUI implements ActionListener {
                    ResultSet rs = statemt.executeQuery();
                    
                     if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Login successful!");
+                JOptionPane.showMessageDialog(null, "successful!");
             } else {
-                JOptionPane.showMessageDialog(null, "Invalid name or lecId!");
+                JOptionPane.showMessageDialog(null, "Error!");
             }
             
                    
                }
+               
+               catch(SQLException ex){
+                   ex.printStackTrace();
+                   JOptionPane.showMessageDialog(null,"Error");
+               }
+                   }
+                   
+               });
+               
+               report.addActionListener(new ActionListener(){
+                  public void actionPerformed(ActionEvent e){
+                      
+                      try{
+                   
+                   
+                   Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                   PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM report");
+                   statemt.setString(1,lecName);
+                   statemt.setString(2, lecId);
+                   ResultSet rs = statemt.executeQuery();
+                   
+                    if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "successful!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error!");
+            }
+            
+                   
+               }
+               
+               catch(SQLException ex){
+                   ex.printStackTrace();
+                   JOptionPane.showMessageDialog(null,"Error");
+               }
+                      
+                      
+                  } 
+               });
+              
            }
            
+        });
+        
+        studentFinancials.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                
+                String regNo= JOptionPane.showInputDialog("Enter your registration Number:");
+                try{
+                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                    PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM financials");
+                    statemt.setString(1,regNo);
+                    ResultSet rst =statemt.executeQuery();
+                    
+                }
+                
+                catch(SQLException ex){
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null,"Error!");
+                }
+                
+            }
+            
+        });
+        
+        library.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                
+                String bookName = JOptionPane.showInputDialog("Enter the book name you wantto search for:");
+                
+               try{
+                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                    PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM book WHERE title = ?");
+                    statemt = conObj.prepareStatement("SELECT * FROM library WHERE bookName = ?");
+                    statemt.setString(1,bookName);
+                    ResultSet rst =statemt.executeQuery();
+                   
+                   
+               } 
+               catch(SQLException ex){
+                   ex.printStackTrace();
+                   JOptionPane.showMessageDialog(null,"Error!");
+               }
+            }
+    
+        });
+        
+        program.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ex){
+                String progId = JOptionPane.showInputDialog("Enter the name of the program you want to search for:");
+                   
+                try{
+                 Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                    PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM program");
+                    statemt = conObj.prepareStatement("SELECT * FROM library WHERE bookName = ?");
+                    statemt.setString(1,proId);
+                    ResultSet rst =statemt.executeQuery();
+                }
+                catch(SQLException exe){
+                   exe.printStackTrace();
+                   JOptionPane.showMessageDialog(null,"Error!");
+                }
+                
+            }
+            
         });
      
         
   
+        
+        
+        
+        
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Student System");
