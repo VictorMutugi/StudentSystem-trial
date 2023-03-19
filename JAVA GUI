@@ -50,7 +50,7 @@ public class GUI implements ActionListener {
                 String progId = JOptionPane.showInputDialog("Enter the program Id:");
                 
                 try{
-                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "password");
                     PreparedStatement statemt = conObj.prepareStatement("INSERT INTO student(name, regNo , idNo, phoneNo,progId) VALUES ( ?, ?, ?, ?, ?)");
                     
                     statemt.setString(1, name);
@@ -95,7 +95,7 @@ public class GUI implements ActionListener {
                   resultSlip.addActionListener( new ActionListener(){
                      public void actionPerformed(ActionEvent e){
                         try{
-                            Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                            Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "password");
                         
                          PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM student_result_slip WHERE name = ? AND regNo = ?");
                          statemt.setString(1, name);
@@ -114,7 +114,7 @@ public class GUI implements ActionListener {
                   course.addActionListener(new ActionListener(){
                      public void actionPerformed(ActionEvent e){
                          try{
-                             Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                             Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "password");
                         
                          PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM course WHERE name = ? AND regNo = ?");
                          statemt.setString(1, name);
@@ -132,7 +132,7 @@ public class GUI implements ActionListener {
                   student.addActionListener(new ActionListener(){
                      public void actionPerformed(ActionEvent ex){
                          try{
-                             Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                             Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "password");
                         
                          PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM student WHERE name = ? AND regNo = ?");
                          statemt.setString(1, name);
@@ -179,7 +179,7 @@ public class GUI implements ActionListener {
                     try{
                    
                    
-                   Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                   Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "password");
                    PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM courses WHERE lecId = ?");
                    statemt.setString(1,lecName);
                    statemt.setString(2, lecId);
@@ -208,7 +208,7 @@ public class GUI implements ActionListener {
                       try{
                    
                    
-                   Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                   Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "password");
                    PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM report");
                    statemt.setString(1,lecName);
                    statemt.setString(2, lecId);
@@ -241,7 +241,7 @@ public class GUI implements ActionListener {
                 
                 String regNo= JOptionPane.showInputDialog("Enter your registration Number:");
                 try{
-                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "password");
                     PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM financials");
                     statemt.setString(1,regNo);
                     ResultSet rst =statemt.executeQuery();
@@ -263,7 +263,7 @@ public class GUI implements ActionListener {
                 String bookName = JOptionPane.showInputDialog("Enter the book name you wantto search for:");
                 
                try{
-                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                    Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "password");
                     PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM book WHERE title = ?");
                     statemt = conObj.prepareStatement("SELECT * FROM library WHERE bookName = ?");
                     statemt.setString(1,bookName);
@@ -284,7 +284,7 @@ public class GUI implements ActionListener {
                 String progId = JOptionPane.showInputDialog("Enter the name of the program you want to search for:");
                    
                 try{
-                 Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                 Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "password");
                     PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM program");
                     statemt = conObj.prepareStatement("SELECT * FROM library WHERE bookName = ?");
                     statemt.setString(1,proId);
