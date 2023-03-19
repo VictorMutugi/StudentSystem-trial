@@ -51,7 +51,7 @@ public class GUI implements ActionListener {
                 
                 try{
                     Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
-                    PreparedStatement statemt = conObj.prepareStatement("INSERT INTO student(name, regNo , idNo, phoneNo,progId) VALUES (?, ?, ?, ?, ?, ?)");
+                    PreparedStatement statemt = conObj.prepareStatement("INSERT INTO student(name, regNo , idNo, phoneNo,progId) VALUES (?, ?, ?, ?, ?)");
                     
                     statemt.setString(1, name);
                     statemt.setString(2, regNo);
