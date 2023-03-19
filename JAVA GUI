@@ -27,15 +27,19 @@ public class GUI implements ActionListener {
         JButton studentLogin = new JButton("Student Login");
         JButton lecLogin = new JButton("Lecturer Login");
         JButton studentFinancials = new JButton("Student Financials");
+        JButton library = new JButton("Library and books");
+        JButton program = new JButton("Program");
         
         
         panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout(2,2));
+        panel.setLayout(new GridLayout(3,2));
         panel.add(studentReg);
         panel.add(studentLogin);
         panel.add(lecLogin);
         panel.add(studentFinancials);
+        panel.add(library);
+        panel.add(program);
         
         studentReg.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -68,7 +72,66 @@ public class GUI implements ActionListener {
         }
       );
         
-        
+        studentLogin.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                String name = JOptionPane.showInputDialog("Enter your name:");
+                String regNo = JOptionPane.showInputDialog("Enter your regNo:");
+                
+                
+                try {
+            Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+            PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM student WHERE name = ? AND regNo = ?");
+            statemt = conObj.prepareStatement("SELECT * FROM student_result_slip WHERE name = ? AND regNo = ?");
+            statemt = conObj.prepareStatement("SELECT * FROM courses WHERE name = ? AND regNo = ?");
+            statemt.setString(1, name);
+            statemt.setString(2, regNo);
+            ResultSet rs = statemt.executeQuery();
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Login successful!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid name or regNo!");
+            }
+            
+            
+
+            conObj.close();
+             } 
+                
+                catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error!");
+                }
+            }
+        }
+        );
+           
+        lecLogin.addActionListener(new ActionListener(){
+           public void actionPerformed(ActionEvent e){
+               String lecName = JOptionPane.showInputDialog("Enter your name:");
+               String lecId = JOptionPane.showInputDialog("Enter your lecturer Id Number:");
+               
+               try{
+                   
+                   frame 
+                   Connection conObj = DriverManager.getConnection("jdbc:mariadb://localhost:3306/task2", "root", "39971939");
+                   PreparedStatement statemt = conObj.prepareStatement("SELECT * FROM courses WHERE lecId = ?");
+                   statemt.setString(1,lecName);
+                   statemt.setString(2, lecId);
+                   ResultSet rs = statemt.executeQuery();
+                   
+                    if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Login successful!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid name or lecId!");
+            }
+            
+                   
+               }
+           }
+           
+        });
+     
         
   
         frame.add(panel, BorderLayout.CENTER);
@@ -78,10 +141,11 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
                 
         
+        
     }
     
     public void actionPerformed(ActionEvent e){
-        Syatem.out.println("Action");
+        System.out.println("Action");
     }
     
     public static void main(String [] args){
